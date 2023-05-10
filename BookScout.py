@@ -36,7 +36,7 @@ window = tkinter.Tk()
 window.title('BookScout')
 input_label = tkinter.Label(window, text='Search by:')
 input_label.pack()
-input_dropdown = tkinter.OptionMenu(window, tkinter.StringVar(), 'title', 'author', 'publisher')
+input_dropdown = tkinter.OptionMenu(window, tkinter.StringVar(), 'title')
 input_dropdown.pack()
 input_label = tkinter.Label(window, text='Enter search term:')
 input_label.pack()
@@ -52,5 +52,4 @@ result_box.pack()
 
 # Start GUI
 window.mainloop()
-
 
