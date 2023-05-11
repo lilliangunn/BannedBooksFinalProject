@@ -1,55 +1,59 @@
 import tkinter
 import pandas as pd
 
+class BookScoutGUI:
+    def __init__(self):
+        self.window = tkinter.Tk()
+        self.window.title('BookScout')
 
-# Define function to search for book
-def search_books(user_input=None, data=None, search_column='title'):
-   # Read CSV file and preprocess data if not provided
-   if data is None:
-       try:
-           data = pd.read_csv('amazon_books.csv')
-           # Remove duplicates and handle missing values
-           data = data.drop_duplicates().fillna('')
-       except Exception as e:
-           print("Error reading file: ", e)
-           return []
+        input_label = tkinter.Label(self.window, text='Search by:')
+        input_label.pack()
+        self.input_var = tkinter.StringVar()
+        input_dropdown = tkinter.OptionMenu(self.window, self.input_var, 'title', 'author')
+        input_dropdown.pack()
 
-   # Get user input from GUI if not provided
-   if user_input is None:
-       user_input = input_box.get()
+        input_label = tkinter.Label(self.window, text='Enter search term:')
+        input_label.pack()
+        self.input_box = tkinter.Entry(self.window)
+        self.input_box.pack()
 
-   # Search for book in dataset
-   result = data[data[search_column].str.contains(user_input, na=False, case=False)]
+        search_button = tkinter.Button(self.window, text='Search', command=self.search_books)
+        search_button.pack()
 
-   # Display results to user if called from GUI
-   if user_input is not None and data is None:
-       result_box.delete(0, tkinter.END)
-       for index, row in result.iterrows():
-           result_box.insert(tkinter.END, row[search_column])
+        result_label = tkinter.Label(self.window, text='Search results:')
+        result_label.pack()
+        self.result_box = tkinter.Listbox(self.window)
+        self.result_box.pack()
 
-   # Return the search results for testing
-   return result[search_column].tolist()
+        # Load and preprocess data
+        try:
+            self.data = pd.read_csv('goodreads_books.csv')
+            # Remove duplicates and handle missing values
+            self.data = self.data.drop_duplicates().fillna('')
+        except Exception as e:
+            raise Exception("Error reading file: ", e)
 
+        self.window.mainloop()
 
-# Create GUI
-window = tkinter.Tk()
-window.title('BookScout')
-input_label = tkinter.Label(window, text='Search by:')
-input_label.pack()
-input_dropdown = tkinter.OptionMenu(window, tkinter.StringVar(), 'title')
-input_dropdown.pack()
-input_label = tkinter.Label(window, text='Enter search term:')
-input_label.pack()
-input_box = tkinter.Entry(window)
-input_box.pack()
-search_button = tkinter.Button(window, text='Search', command=search_books)
-search_button.pack()
-result_label = tkinter.Label(window, text='Search results:')
-result_label.pack()
-result_box = tkinter.Listbox(window)
-result_box.pack()
+    def search_books(self):
+        """
+        Search for books in the dataset based on user input.
 
+        Returns:
+            A list of tuples with book titles and authors that match the search query.
+        """
+        search_column = self.input_var.get()
+        user_input = self.input_box.get()
 
-# Start GUI
-window.mainloop()
+        # Search for book in dataset
+        result = self.data[self.data[search_column].str.contains(user_input, na=False, case=False)]
 
+        # Display results to user
+        self.result_box.delete(0, tkinter.END)
+        for index, row in result.iterrows():
+            self.result_box.insert(tkinter.END, f"{row['title']} by {row['author']}")
+
+        return [(row['title'], row['author']) for _, row in result.iterrows()]
+
+if __name__ == '__main__':
+    app = BookScoutGUI()
