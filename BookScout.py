@@ -1,3 +1,10 @@
+"""
+INST326 (0105) Final Project: BookScout
+Professor Gabriel Cruz
+
+By: Kenneth Yeaher and Lillian Gunn
+"""
+
 import tkinter
 import pandas as pd
 
@@ -6,7 +13,7 @@ class BookScoutGUI:
         self.window = tkinter.Tk()
         self.window.title('BookScout')
 
-        input_label = tkinter.Label(self.window, text='Search by:')
+        input_label = tkinter.Label(self.window, text='Search by:', width=50) #EDIT:added width=50 to default widen the GUI
         input_label.pack()
         self.input_var = tkinter.StringVar()
         input_dropdown = tkinter.OptionMenu(self.window, self.input_var, 'title', 'author')
@@ -14,16 +21,22 @@ class BookScoutGUI:
 
         input_label = tkinter.Label(self.window, text='Enter search term:')
         input_label.pack()
-        self.input_box = tkinter.Entry(self.window)
+        self.input_box = tkinter.Entry(self.window, width=20) #EDIT:width=20 to widen entry box a little
         self.input_box.pack()
 
-        search_button = tkinter.Button(self.window, text='Search', command=self.search_books)
+        search_button = tkinter.Button(self.window, text='Search', command=self.search_books, bg = 'light green') #EDIT:colored search button green
         search_button.pack()
 
         result_label = tkinter.Label(self.window, text='Search results:')
         result_label.pack()
         self.result_box = tkinter.Listbox(self.window)
-        self.result_box.pack()
+        self.result_box.pack(fill=tkinter.BOTH, expand=True) #EDIT: added expand to GUI
+
+        #EDIT: added red clear_results button to bottom of GUI; new clear_results() method added also
+        clear_results_button = tkinter.Button(self.window, text='Clear Results', command=self.clear_results, bg='red')
+        clear_results_button.pack()
+
+
 
         # Load and preprocess data
         try:
@@ -54,6 +67,12 @@ class BookScoutGUI:
             self.result_box.insert(tkinter.END, f"{row['title']} by {row['author']}")
 
         return [(row['title'], row['author']) for _, row in result.iterrows()]
+
+    #EDIT: new clear_results method
+    def clear_results(self):
+        """
+        Delete the items in the results box."""
+        self.result_box.delete(0, tkinter.END)
 
 if __name__ == '__main__':
     app = BookScoutGUI()
