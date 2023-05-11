@@ -1,6 +1,8 @@
 Procedure for testing the __init__ method:
     Run the program.
     Verify that a window appears with the title 'BookScout'.
+    Verify that the window is movable with the curser.
+    Verify that the window can be resized horizontally and vertically with the curser.
     Verify that there is a label 'Search by:' and an option menu below it with 'title' as the default value and author as a second option.
     Verify that there is a label 'Enter search term:' and an entry box below it.
     Verify that there is a light green 'Search' button.
