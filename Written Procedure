@@ -1,15 +1,24 @@
 Procedure for testing the __init__ method:
     Run the program.
     Verify that a window appears with the title 'BookScout'.
-    Verify that there is a label 'Search by:' and an option menu below it with 'title' as the default value.
+    Verify that there is a label 'Search by:' and an option menu below it with 'title' as the default value and author as a second option.
     Verify that there is a label 'Enter search term:' and an entry box below it.
-    Verify that there is a 'Search' button.
+    Verify that there is a light green 'Search' button.
     Verify that there is a label 'Search results:' and a list box below it.
+    Verify that there is a red 'Clear Results' button.
     
 Procedure for testing the search_books method:
     Run the program.
+    Select 'title' or 'author' from the option menu under the 'Search by:' label.
     Enter a search term in the entry box and click the 'Search' button.
     Verify that the list box updates with the titles and authors of the books that match the search term.
     If no books match the search term, verify that the list box is empty.
     Test with different search terms, including both existing and non-existing titles and authors.
+
+Procedure for testing the clear_results method:
+    Run the program.
+    Run the search_books method.
+    Once there are results in the list box, click 'Clear Results'.
+    All of the results should disappear from the list box.
+    
 
