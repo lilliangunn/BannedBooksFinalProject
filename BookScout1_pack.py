@@ -1,22 +1,5 @@
 """
-THEMES - Lillian Gunn
 
-to add-
-1. imagges into buttons
-2. scrollable bar
-3. when clicking on a book title then other info about the book pops up on another screen?
-4. add listbox and optionmenu to custom theme
-5. tkinter as tk and customtkinter as ctk
-6. frame structure -CHECK
-
-
-3:24pm current issues with the code: 
-    1.sliders in the wrong place, don't work. 
-    2. clear results button has disappeared
-    
-    3. search term but no title/author exception is broken?
-    
-OK take a break and then do stat final
 """
 
 #pip3 install customtkinter
